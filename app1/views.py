@@ -325,28 +325,14 @@ class Rate_Meal(APIView):
 
 
 class MOC(APIView):
-    def post(self,request):
-        username=request.data.get('username')
-        password=request.data.get('password')
-        name=request.data.get('name')
-        description=request.data.get('description')
+    def patch(self,request):
         image=request.FILES.get('image')
-        stars=request.data.get("stars")
         for i in range(101):
-            User.objects.create_user(
-            username=f'{username}{i}',
-            password=password
-            )
-            Meal.objects.create(
-            name=f'{name}{i}',
-            description=f'{description}{i}',
-            image=image
-            )
-            Rating.objects.create(
-                meal=Meal.objects.filter(name=f'{name}{i}').first(),
-                user=User.objects.filter(username=f'{username}{i}').first(),
-                stars=stars
-            )
+            meal=Meal.objects.filter(name=f'meal{i}').first()
+            meal.image.delete()
+            meal.image=image
+            meal.save()
+            
         return Response("ok")
 # class MealViewSet(viewsets.ModelViewSet):
 #     permission_classes=[IsAuthenticatedOrReadOnly]
