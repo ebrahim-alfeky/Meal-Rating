@@ -33,6 +33,8 @@ urlpatterns = [
     path('rates/',RatingView.as_view(),name='rates'),
     path('rates/<str:id>/',RatingView.as_view(),name='rates'),
     
+    
+    path('moc/',MOC.as_view())
     # path('meals/viewset/', include(meal_router.urls)),
     # path('rates/viewset/', include(rating_router.urls)),
     # path('users/viewset/', include(user_router.urls)),
